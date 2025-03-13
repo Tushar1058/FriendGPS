@@ -1,0 +1,300 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+:root {
+    --primary-color: #4CAF50;
+    --primary-dark: #388E3C;
+    --primary-light: #81C784;
+    --background-dark: #121212;
+    --surface-dark: #1E1E1E;
+    --text-primary: #FFFFFF;
+    --text-secondary: rgba(255, 255, 255, 0.7);
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background-color: var(--background-dark);
+    color: var(--text-primary);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#app {
+    width: 100%;
+    max-width: 500px;
+    padding: 20px;
+    margin: 0 auto;
+    background-color: var(--surface-dark);
+    border-radius: 16px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+}
+
+.logo {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.logo svg {
+    margin-bottom: 10px;
+}
+
+.screen {
+    display: none;
+    text-align: center;
+    padding: 20px;
+}
+
+.screen.active {
+    display: block;
+    animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+h1 {
+    color: var(--text-primary);
+    margin-bottom: 20px;
+    font-size: 2.5rem;
+}
+
+h2 {
+    color: var(--text-secondary);
+    margin-bottom: 15px;
+    font-size: 1.5rem;
+}
+
+button {
+    background-color: var(--primary-color);
+    color: var(--text-primary);
+    border: none;
+    padding: 12px 24px;
+    border-radius: 25px;
+    font-size: 16px;
+    cursor: pointer;
+    margin: 10px 0;
+    width: 100%;
+    max-width: 300px;
+    transition: all 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+button:hover {
+    background-color: var(--primary-dark);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(76, 175, 80, 0.2);
+}
+
+.btn-icon {
+    font-size: 20px;
+    font-weight: bold;
+}
+
+input {
+    width: 100%;
+    max-width: 300px;
+    padding: 12px;
+    margin: 10px 0;
+    border: 2px solid var(--primary-color);
+    border-radius: 25px;
+    font-size: 16px;
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.1);
+    color: var(--text-primary);
+    transition: all 0.3s;
+}
+
+input:focus {
+    outline: none;
+    border-color: var(--primary-light);
+    background-color: rgba(255, 255, 255, 0.15);
+}
+
+#compass-container {
+    margin: 30px auto;
+    position: relative;
+    width: 280px;
+    height: 280px;
+}
+
+#compass {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background-color: var(--surface-dark);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+}
+
+.compass-ring {
+    position: absolute;
+    width: 90%;
+    height: 90%;
+    border-radius: 50%;
+    border: 2px solid var(--primary-color);
+    opacity: 0.5;
+}
+
+.compass-ring::before {
+    content: 'N';
+    position: absolute;
+    top: -5px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: var(--primary-color);
+    font-weight: bold;
+}
+
+#arrow {
+    width: 0;
+    height: 0;
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+    border-bottom: 100px solid var(--primary-color);
+    position: absolute;
+    transform-origin: center 75%;
+    transition: transform 0.3s ease-out;
+    filter: drop-shadow(0 0 10px rgba(76, 175, 80, 0.3));
+}
+
+#distance {
+    margin-top: 20px;
+    font-size: 28px;
+    font-weight: bold;
+    color: var(--text-primary);
+}
+
+#status {
+    margin: 20px 0;
+    color: var(--text-secondary);
+    transition: color 0.3s;
+}
+
+.status-connecting {
+    color: #FFA000 !important;
+}
+
+.status-connected {
+    color: #4CAF50 !important;
+}
+
+.status-error {
+    color: #f44336 !important;
+}
+
+.hidden {
+    display: none;
+}
+
+#code-display {
+    font-size: 36px;
+    font-weight: bold;
+    color: var(--primary-color);
+    margin: 20px 0;
+    letter-spacing: 5px;
+    text-shadow: 0 0 10px rgba(76, 175, 80, 0.3);
+    cursor: pointer;
+    padding: 10px;
+    border-radius: 8px;
+    transition: all 0.3s;
+    user-select: all;
+}
+
+#code-display:hover {
+    background-color: rgba(76, 175, 80, 0.1);
+}
+
+#code-display:active {
+    transform: scale(0.98);
+}
+
+.share-text {
+    color: var(--text-secondary);
+    font-size: 14px;
+    margin-top: 10px;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { opacity: 0.6; }
+    50% { opacity: 1; }
+    100% { opacity: 0.6; }
+}
+
+button:disabled {
+    background-color: #666;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+#connection-status {
+    position: fixed;
+    top: 10px;
+    right: 10px;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: #f44336;
+    transition: background-color 0.3s;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+#create-session, #join-session {
+    margin: 30px 0;
+}
+
+#leave-btn {
+    background-color: #f44336;
+}
+
+#leave-btn:hover {
+    background-color: #d32f2f;
+    box-shadow: 0 4px 8px rgba(244, 67, 54, 0.2);
+}
+
+@media (max-width: 480px) {
+    #app {
+        min-height: 100vh;
+        border-radius: 0;
+        padding: 16px;
+    }
+
+    h1 {
+        font-size: 2rem;
+    }
+
+    #compass-container {
+        width: 240px;
+        height: 240px;
+    }
+
+    #code-display {
+        font-size: 32px;
+    }
+
+    button {
+        padding: 10px 20px;
+    }
+
+    #connection-status {
+        top: 16px;
+        right: 16px;
+    }
+} 

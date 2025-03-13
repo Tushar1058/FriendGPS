@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FriendGPS</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="/socket.io/socket.io.js"></script>
+</head>
+<body>
+    <div id="app">
+        <div id="session-setup" class="screen active">
+            <div class="logo">
+                <svg viewBox="0 0 24 24" width="48" height="48">
+                    <path fill="#4CAF50" d="M12 8c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4zm8.94 3c-.46-4.17-3.77-7.48-7.94-7.94V1h-2v2.06C6.83 3.52 3.52 6.83 3.06 11H1v2h2.06c.46 4.17 3.77 7.48 7.94 7.94V23h2v-2.06c4.17-.46 7.48-3.77 7.94-7.94H23v-2h-2.06zM12 19c-3.87 0-7-3.13-7-7s3.13-7 7-7 7 3.13 7 7-3.13 7-7 7z"/>
+                </svg>
+                <h1>FriendGPS</h1>
+            </div>
+            <div id="create-session">
+                <button id="create-btn">
+                    <span class="btn-icon">+</span>
+                    Create New Session
+                </button>
+                <div id="session-code-display" class="hidden">
+                    <h2>Your Session Code:</h2>
+                    <div id="code-display"></div>
+                    <p class="share-text">Share this code with your friend</p>
+                </div>
+            </div>
+            <div id="join-session">
+                <h2>Join Session</h2>
+                <input type="text" id="session-code-input" maxlength="6" placeholder="Enter 6-digit code">
+                <button id="join-btn">
+                    <span class="btn-icon">→</span>
+                    Join Session
+                </button>
+            </div>
+        </div>
+
+        <div id="location-sharing" class="screen">
+            <div id="compass-container">
+                <div id="compass">
+                    <div class="compass-ring"></div>
+                    <div id="arrow"></div>
+                </div>
+                <div id="distance">-- m</div>
+            </div>
+            <div id="status">Waiting for other user...</div>
+            <button id="leave-btn">
+                <span class="btn-icon">×</span>
+                Leave Session
+            </button>
+        </div>
+    </div>
+    <script src="app.js"></script>
+</body>
+</html> 
