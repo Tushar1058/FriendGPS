@@ -71,13 +71,14 @@ io.on('connection', (socket) => {
             let code;
             let attempts = 0;
             const maxAttempts = 5;
+            let row;
 
             // Generate a unique code
             do {
                 code = generateSessionCode();
                 attempts++;
                 try {
-                    await new Promise((resolve, reject) => {
+                    row = await new Promise((resolve, reject) => {
                         db.get('SELECT code FROM sessions WHERE code = ?', [code], (err, row) => {
                             if (err) reject(err);
                             resolve(row);
@@ -96,19 +97,23 @@ io.on('connection', (socket) => {
             }
 
             // Create new session
-            db.run('INSERT INTO sessions (code, user1_id) VALUES (?, ?)', 
-                [code, socket.id], 
-                (err) => {
-                    if (err) {
-                        console.error('Error creating session:', err);
-                        socket.emit('error', 'Failed to create session');
-                        return;
+            await new Promise((resolve, reject) => {
+                db.run('INSERT INTO sessions (code, user1_id) VALUES (?, ?)', 
+                    [code, socket.id], 
+                    (err) => {
+                        if (err) {
+                            console.error('Error creating session:', err);
+                            socket.emit('error', 'Failed to create session');
+                            reject(err);
+                            return;
+                        }
+                        console.log('Session created:', code);
+                        socket.join(code);
+                        socket.emit('session-created', code);
+                        resolve();
                     }
-                    console.log('Session created:', code);
-                    socket.join(code);
-                    socket.emit('session-created', code);
-                }
-            );
+                );
+            });
         } catch (err) {
             console.error('Error in create-session:', err);
             socket.emit('error', 'Failed to create session');

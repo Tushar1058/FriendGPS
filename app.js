@@ -197,11 +197,14 @@ createBtn.addEventListener('click', async () => {
         return;
     }
 
+    console.log('Requesting permissions...');
     if (await requestPermissions()) {
+        console.log('Permissions granted, creating session...');
         createBtn.disabled = true;
         createBtn.textContent = 'Creating...';
         socket.emit('create-session');
     } else {
+        console.log('Permission denied');
         statusDisplay.textContent = 'Please grant necessary permissions';
         statusDisplay.style.color = '#f44336';
     }
@@ -241,6 +244,7 @@ codeDisplay.addEventListener('click', copySessionCode);
 
 // Socket event handlers
 socket.on('session-created', (code) => {
+    console.log('Session created with code:', code);
     currentSession = code;
     codeDisplay.textContent = code;
     sessionCodeDisplay.classList.remove('hidden');
@@ -280,6 +284,7 @@ socket.on('session-ended', () => {
 });
 
 socket.on('error', (message) => {
+    console.error('Socket error:', message);
     alert(message);
     createBtn.disabled = false;
     createBtn.textContent = 'Create New Session';
